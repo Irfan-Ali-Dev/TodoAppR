@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { use, useState } from "react"
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [todo , setTodo] = useState([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const addTodo = (event)=> {
+        event.preventDefault();
+        console.log(title);
+        console.log(description);
+        
+        todo.push({
+            title,description
+        })
+        setTodo([...todo])
+
+        setTitle('')
+        setDescription('')
+    }
+
+    const deleteTodo = (index)=>{
+        console.log("delete todo " , index);
+        todo.splice(index , 1)
+        setTodo([...todo])
+        
+    }
+    const editTodo = (index)=>{
+        console.log("edit todo " , index);
+
+        const title = prompt ("enter updated title " , todo[index].title);
+        todo[index].title = title
+        setTodo([...todo])
+        
+    }
+
+    return (
+        <>
+        <h1 className="logo">Todo App</h1>
+        <form onSubmit={addTodo}>
+            <input type="text" name="title" id="title" placeholder="Enter Title" onChange={(e)=>setTitle(e.target.value)}/>
+            <input className="root" type="text" name="description" id="description" placeholder="Enter Description" onChange={(e)=>setDescription(e.target.value)}/>
+            <button> Add Todo</button>
+        </form>
+
+        <div>
+            {todo.length > 0 ? todo.map((item, index) => {
+                return <div key={index}>
+                    <h1>No {index + 1}</h1>
+                    <p className="card">Title: {item.title}</p>
+                    <p className="card">Desc: {item.description}</p>
+                    <button onClick={()=> editTodo(index)}>Edit</button>
+                    <button onClick={()=> deleteTodo(index)}>Delete</button>
+                </div>
+            }) : <h1>No todo Found...</h1>}
+        </div>
+
+        </>
+    )
 }
+
+
 
 export default App

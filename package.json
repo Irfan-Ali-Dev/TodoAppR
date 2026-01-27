@@ -1,21 +1,5 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
-  "homepage": "https://{your-username}.github.io/{your-repo-name}",
-  "private": true,
-  // ... rest of the file
-}
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build",
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  // ... other scripts
-},
-
-
-{
-  "name": "todo-app",
+  "name": "todo",
   "private": true,
   "version": "0.0.0",
   "type": "module",
